@@ -1,5 +1,5 @@
 /*
-    "raygui_ext.h/.c" is github.com/giffi-dev's additions to the raygui framework.
+    "raygui_ext.h/.c" are github.com/giffi-dev's additions to the raygui framework.
 */
 
 #ifndef RAYGUI_EXT_H
