@@ -1,7 +1,12 @@
 /*
-    "raygui_ext.h/.c" is github.com/giffi-dev's additions to the raygui framework.
+    "raygui_ext.h/.c" are github.com/giffi-dev's additions to the raygui framework.
 */
-#include <assert.h>
+
+#ifdef NDEBUG
+    #define ASSERT(expr, msg) if (!(expr)) { printf("\033[31mASSERTION FAILED!: %s!\033[0m\n", msg); } // should be removed in the future, but for now on i'll keep this.
+#else
+    #define ASSERT(expr, msg) if (!(expr)) { printf("\033[31mASSERTION FAILED!: %s!\033[0m\n", msg); exit(-1); }
+#endif
 #include "raygui_ext.h"
 
 /*
@@ -28,12 +33,13 @@ static Rectangle menu_stack[MENU_STACK] = {0};
 static int menu_ptr = -1;
 
 void GuiBeginMenu(Rectangle menu) {
-    assert(menu_ptr < MENU_STACK); // if asserted here: "remembered to add 'GuiEndMenu'?" or exceeded stack size of 8?
+    ASSERT(menu_ptr < MENU_STACK - 1, "remembered to add 'GuiEndMenu()'? or exceeded stack size of 8?");
     menu_stack[++menu_ptr] = menu;
 }
 
 void GuiEndMenu() {
-    assert(menu_ptr-- > -1); // if asserted here: "remembered to add 'GuiBeginMenu'?"
+    ASSERT(menu_ptr > -1, "remembered to add 'GuiBeginMenu()'?");
+    menu_ptr--;
 }
 
 bool GuiMenuButton(const char* text) {
@@ -84,7 +90,8 @@ void GuiEndTopBar() {
 }
 
 bool GuiTopBarButton(const char* text) {
-    assert(++topbar_ptr < MAX_TOPBAR_BTN_COUNT); // if asserted here: got past max_count?
+    ASSERT(topbar_ptr < MAX_TOPBAR_BTN_COUNT, "GOT PAST MAX_TOPBAR_BTN_COUNT OF 16");
+    topbar_ptr++;
     
     const int BTN_WIDTH = 64; 
     Rectangle bounds = {topbar_next_x, 0, BTN_WIDTH, topbar_height};
@@ -112,7 +119,7 @@ void GuiComplexColorPicker(Rectangle bounds, Color* color) {
     } 
     
     int font_size = GetFontDefault().baseSize;
-    assert(font_size > 0);
+    ASSERT(font_size > 1, "FONT SIZE IS UNDER 1");
     
     // Picker
     const int slider_count = 4;

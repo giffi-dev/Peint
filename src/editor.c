@@ -2,7 +2,6 @@
 #include <raygui.h>
 #include <raygui_ext.h>
 #include <stdio.h>
-#include <assert.h>
 #include <string.h>
 
 #include "style/cyper.h"
@@ -13,8 +12,8 @@
 editor_data_t g_EditorData = {0};
 
 static void EditorCamera(void) {
-    assert(g_EditorData.canvas.image.width != 0);
-    assert(g_EditorData.canvas.image.height != 0);
+    ASSERT(g_EditorData.canvas.image.width != 0, "CANVAS WIDTH IS 0");
+    ASSERT(g_EditorData.canvas.image.height != 0, "CANVAS HEIGHT IS 0");
 	
 	g_EditorData.camera.offset.x = (GetScreenWidth() / 2.0f) - ((g_EditorData.canvas.image.width / 2.0f) * g_EditorData.camera.zoom) + g_EditorData.drag_offset.x;
 	g_EditorData.camera.offset.y = (GetScreenHeight() / 2.0f) - ((g_EditorData.canvas.image.height / 2.0f) * g_EditorData.camera.zoom) + g_EditorData.drag_offset.y;

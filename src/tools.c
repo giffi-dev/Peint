@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include <stdio.h>
-#include <assert.h>
 #include <string.h>
 #include "tools.h"
 #include "editor.h"
@@ -53,7 +52,7 @@ void ToolUse(canvas_t* canvas, drawtool_t* tool) {
             tool->color = GetImageColor(canvas->image, (int)tool->position.x, (int)tool->position.y);
             break;
         default:
-            assert(false); // unkown drawtool
+            ASSERT(false, "Unkown Drawtool!");
             break;
     }
 
