@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.18.4)
 
-set(CMAKE_C_COMPILER /usr/bin/gcc)
-#set(CMAKE_C_COMPILER /usr/bin/clang)
+if(LINUX)
+    set(CMAKE_C_COMPILER /usr/bin/gcc)
+    #set(CMAKE_C_COMPILER /usr/bin/clang)
+endif()
 
 project("Peint" LANGUAGES C)
 
@@ -18,6 +20,9 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 99)
 # Libs
 add_subdirectory(thirdparty/raylib)
 add_subdirectory(thirdparty/raygui)
+target_include_directories(raygui 
+    PRIVATE thirdparty/raylib/src
+)
 add_subdirectory(thirdparty/tinyfiledialogs)
 
 target_include_directories(${PROJECT_NAME} 
