@@ -2,6 +2,8 @@
     "raygui_ext.h/.c" are github.com/giffi-dev's additions to the raygui framework.
 */
 
+#include <stdio.h>
+#include <stdlib.h>
 #ifdef NDEBUG
     #define ASSERT(expr, msg) if (!(expr)) { printf("\033[31mASSERTION FAILED!: %s!\033[0m\n", msg); } // should be removed in the future, but for now on i'll keep this.
 #else
