@@ -169,7 +169,8 @@ static void DrawGui(void) {
     
     // Side Tools
     static Rectangle side_tools = { 0.0f, 0.0f, 32.0f, 32.0f};
-    side_tools.y = (GetScreenHeight() / 2.0f) - (1.5*32); // 6btns / 2 = 2
+    side_tools.y = (GetScreenHeight() / 2.0f) - (2*32); // btn_count / 2
+
     GuiBeginMenu(side_tools);
         
         // FIXME: Somewhat of a dirty way to get these icons highlighted.
@@ -186,6 +187,14 @@ static void DrawGui(void) {
         }
         if (GuiMenuButton("#28#")) {
             g_EditorData.draw_tool.type = TOOL_ERASER;
+        }
+        GuiSetState(GUI_STATE_NORMAL);
+
+        if (g_EditorData.draw_tool.type == TOOL_BUCKET) {
+            GuiSetState(GUI_STATE_PRESSED);
+        }
+        if (GuiMenuButton("#29#")) {
+            g_EditorData.draw_tool.type = TOOL_BUCKET;
         }
         GuiSetState(GUI_STATE_NORMAL);
 

@@ -7,6 +7,7 @@ typedef enum drawtool_type {
     TOOL_NULL,
 	TOOL_PENCIL,
 	TOOL_ERASER,
+    TOOL_BUCKET,
     TOOL_COLOR_PICKER,
 } drawtool_type;
 
